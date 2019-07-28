@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.request.RequestOptions;
 import com.dzakdzaks.movies.R;
 import com.dzakdzaks.movies.data.TvShow;
-import com.dzakdzaks.movies.ui.detail.movie.DetailActivity;
 import com.dzakdzaks.movies.ui.detail.tvshow.DetailShowActivity;
 import com.dzakdzaks.movies.utils.GlideApp;
 

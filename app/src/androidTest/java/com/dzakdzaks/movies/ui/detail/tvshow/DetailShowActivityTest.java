@@ -8,7 +8,6 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.dzakdzaks.movies.R;
 import com.dzakdzaks.movies.data.TvShow;
-import com.dzakdzaks.movies.ui.detail.movie.DetailActivity;
 import com.dzakdzaks.movies.utils.FakeDummy;
 
 import org.junit.After;

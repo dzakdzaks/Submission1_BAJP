@@ -73,6 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -109,8 +110,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingLeft="14dp"
-                                android:paddingRight="14dp"
                                 android:paddingTop="14dp"
+                                android:paddingRight="14dp"
                                 android:text="@string/movie_original_title"
                                 android:textColor="@color/colorPrimaryDark" />
 
@@ -129,8 +130,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingLeft="14dp"
-                                android:paddingRight="14dp"
                                 android:paddingTop="14dp"
+                                android:paddingRight="14dp"
                                 android:text="@string/tanggal_release"
                                 android:textColor="@color/colorPrimaryDark" />
 
