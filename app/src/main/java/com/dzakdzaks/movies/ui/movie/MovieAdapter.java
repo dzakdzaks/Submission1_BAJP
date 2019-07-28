@@ -1,12 +1,12 @@
 package com.dzakdzaks.movies.ui.movie;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.request.RequestOptions;
 import com.dzakdzaks.movies.R;
 import com.dzakdzaks.movies.data.Movie;
+import com.dzakdzaks.movies.ui.detail.movie.DetailActivity;
 import com.dzakdzaks.movies.utils.GlideApp;
 
 import java.util.ArrayList;
@@ -61,9 +62,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_broken_image_black))
                 .into(holder.imgBg);
 
-        holder.itemView.setOnClickListener(view ->
-                Toast.makeText(activity, movies.get(position).getMovieTitle(), Toast.LENGTH_SHORT).show()
-        );
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(activity, DetailActivity.class);
+            intent.putExtra(DetailActivity.EXTRA_MOVIE, getMovies().get(position).getMovieId());
+            activity.startActivity(intent);
+        });
     }
 
     @Override

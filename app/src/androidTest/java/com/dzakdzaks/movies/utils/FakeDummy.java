@@ -5,7 +5,7 @@ import com.dzakdzaks.movies.data.TvShow;
 
 import java.util.ArrayList;
 
-public class Dummy {
+public class FakeDummy {
 
     public static ArrayList<Movie> generateMovie() {
         ArrayList<Movie> movies = new ArrayList<>();
