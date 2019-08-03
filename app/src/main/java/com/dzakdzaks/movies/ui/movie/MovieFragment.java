@@ -5,16 +5,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dzakdzaks.movies.R;
-import com.dzakdzaks.movies.data.Movie;
+import com.dzakdzaks.movieLocals.BuildConfig;
+import com.dzakdzaks.movieLocals.R;
+import com.dzakdzaks.movies.data.local.entity.MovieLocal;
+import com.dzakdzaks.movies.viewmodel.ViewModelFactory;
 
 import java.util.List;
 
@@ -24,9 +28,10 @@ import java.util.List;
  */
 public class MovieFragment extends Fragment {
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
     private MovieAdapter adapter;
     private MovieViewModel viewModel;
-    private List<Movie> movies;
+    private List<MovieLocal> movieLocals;
 
     public MovieFragment() {
         // Required empty public constructor
@@ -45,19 +50,38 @@ public class MovieFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.rvMovie);
+        progressBar = view.findViewById(R.id.progress_bar);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
-        movies = viewModel.getMovies();
+        if (getActivity() != null) {
+            viewModel = obtainViewModel(getActivity());
+            progressBar.setVisibility(View.VISIBLE);
 
-        adapter = new MovieAdapter(getActivity());
-        adapter.setMovies(movies);
+            viewModel.getMovies(BuildConfig.API_KEY, BuildConfig.LANGUAGE, BuildConfig.PAGE)
+                    .observe(this, movies -> {
+                        progressBar.setVisibility(View.GONE);
+                        adapter.setMovieLocals(movies);
+                        adapter.notifyDataSetChanged();
+                    });
+
+            adapter = new MovieAdapter(getActivity());
+            adapter.setMovieLocals(movieLocals);
+
+
+        }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+    }
+
+    @NonNull
+    private static MovieViewModel obtainViewModel(FragmentActivity activity) {
+
+        ViewModelFactory factory = ViewModelFactory.getInstance();
+        return ViewModelProviders.of(activity, factory).get(MovieViewModel.class);
     }
 }

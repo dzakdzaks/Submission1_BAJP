@@ -1,7 +1,7 @@
-package com.dzakdzaks.movies.data;
+package com.dzakdzaks.movies.data.local.entity;
 
-public class Movie {
-    private String movieId;
+public class MovieLocal {
+    private int movieId;
     private String movieTitle;
     private String movieOriginalTitle;
     private String movieCountry;
@@ -9,8 +9,10 @@ public class Movie {
     private String movieReleaseDate;
     private String movieImage;
     private double movieVote;
+    private boolean bookmarked = false;
 
-    public Movie(String movieId, String movieTitle, String movieOriginalTitle, String movieCountry, String movieOverview, String movieReleaseDate, String movieImage, double movieVote) {
+
+    public MovieLocal(int movieId, String movieTitle, String movieOriginalTitle, String movieCountry, String movieOverview, String movieReleaseDate, String movieImage, double movieVote, Boolean bookmarked) {
         this.movieId = movieId;
         this.movieTitle = movieTitle;
         this.movieOriginalTitle = movieOriginalTitle;
@@ -19,14 +21,17 @@ public class Movie {
         this.movieReleaseDate = movieReleaseDate;
         this.movieImage = movieImage;
         this.movieVote = movieVote;
+        if (bookmarked != null) {
+            this.bookmarked = bookmarked;
+        }
     }
 
 
-    public String getMovieId() {
+    public int getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(String movieId) {
+    public void setMovieId(int movieId) {
         this.movieId = movieId;
     }
 
@@ -84,5 +89,13 @@ public class Movie {
 
     public void setMovieVote(double movieVote) {
         this.movieVote = movieVote;
+    }
+
+    public boolean isBookmarked() {
+        return bookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        this.bookmarked = bookmarked;
     }
 }

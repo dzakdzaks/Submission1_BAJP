@@ -5,16 +5,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dzakdzaks.movies.R;
-import com.dzakdzaks.movies.data.TvShow;
+import com.dzakdzaks.movieLocals.BuildConfig;
+import com.dzakdzaks.movieLocals.R;
+import com.dzakdzaks.movies.data.local.entity.TvShowLocal;
+import com.dzakdzaks.movies.viewmodel.ViewModelFactory;
 
 import java.util.List;
 
@@ -24,9 +28,10 @@ import java.util.List;
  */
 public class TvShowFragment extends Fragment {
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
     private TvShowAdapter adapter;
     private TvShowViewModel viewModel;
-    private List<TvShow> tvShows;
+    private List<TvShowLocal> tvShowLocals;
 
 
     public TvShowFragment() {
@@ -45,19 +50,35 @@ public class TvShowFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.rvTvShow);
+        progressBar = view.findViewById(R.id.progress_bar);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
-        tvShows = viewModel.getTvShows();
+        if (getActivity() != null) {
+            viewModel = obtainViewModel(getActivity());
+            progressBar.setVisibility(View.VISIBLE);
+
+            viewModel.getTvShows(BuildConfig.API_KEY, BuildConfig.LANGUAGE, BuildConfig.PAGE)
+                    .observe(this, tvShows -> {
+                        progressBar.setVisibility(View.GONE);
+                        adapter.setMovies(tvShows);
+                        adapter.notifyDataSetChanged();
+                    });
+        }
 
         adapter = new TvShowAdapter(getActivity());
-        adapter.setMovies(tvShows);
+        adapter.setMovies(tvShowLocals);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+    }
+
+    @NonNull
+    private static TvShowViewModel obtainViewModel(FragmentActivity activity) {
+        ViewModelFactory factory = ViewModelFactory.getInstance();
+        return ViewModelProviders.of(activity, factory).get(TvShowViewModel.class);
     }
 }

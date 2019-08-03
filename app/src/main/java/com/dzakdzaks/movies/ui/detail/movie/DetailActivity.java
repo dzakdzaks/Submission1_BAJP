@@ -1,22 +1,29 @@
 package com.dzakdzaks.movies.ui.detail.movie;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.ViewCompat;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.bumptech.glide.request.RequestOptions;
-import com.dzakdzaks.movies.R;
-import com.dzakdzaks.movies.data.Movie;
+import com.dzakdzaks.movieLocals.BuildConfig;
+import com.dzakdzaks.movieLocals.R;
+import com.dzakdzaks.movies.data.local.entity.MovieLocal;
 import com.dzakdzaks.movies.utils.GlideApp;
+import com.dzakdzaks.movies.utils.GlobalFunction;
+import com.dzakdzaks.movies.viewmodel.ViewModelFactory;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -35,26 +42,33 @@ public class DetailActivity extends AppCompatActivity {
     private TextView txtCountry;
     private TextView txtOverview;
     private DetailViewModel viewModel;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        viewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
+        viewModel = obtainViewModel(this);
         setInit();
         setupActionBar();
 
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String courseId = extras.getString(EXTRA_MOVIE);
-            if (courseId != null) {
-                viewModel.setMovieId(courseId);
+            String movieId = extras.getString(EXTRA_MOVIE);
+            if (movieId != null) {
+                progressBar.setVisibility(View.VISIBLE);
+                viewModel.setMovieId(movieId);
             }
         }
 
-        if (viewModel.getMovie() != null) {
-            showMovie(viewModel.getMovie());
-        }
+        viewModel.getDetailMovie().observe(this, movieLocal ->{
+                    if (movieLocal != null) {
+                        progressBar.setVisibility(View.GONE);
+                        showMovie(movieLocal);
+                    }
+                });
+
 
     }
 
@@ -70,6 +84,7 @@ public class DetailActivity extends AppCompatActivity {
         txtVoteAverage = findViewById(R.id.textVoteAverage);
         txtCountry = findViewById(R.id.textCountry);
         txtOverview = findViewById(R.id.textOverview);
+        progressBar = findViewById(R.id.progress_bar);
     }
 
     private void setupActionBar() {
@@ -119,23 +134,29 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-    private void showMovie(Movie movie) {
-        collapsingToolbarLayout.setTitle(movie.getMovieTitle());
+    private void showMovie(MovieLocal movieLocal) {
+        collapsingToolbarLayout.setTitle(movieLocal.getMovieTitle());
         setupActionBar();
         GlideApp.with(getApplicationContext())
-                .load(movie.getMovieImage())
+                .load(BuildConfig.BASE_URL_IMG_LANDSCAPE + movieLocal.getMovieImage())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_error))
                 .into(imgThumb);
         GlideApp.with(getApplicationContext())
-                .load(movie.getMovieImage())
+                .load(BuildConfig.BASE_URL_IMG + movieLocal.getMovieImage())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_error))
                 .into(imgPoster);
-        txtTitle.setText(movie.getMovieTitle());
-        txtOriginTitle.setText(movie.getMovieOriginalTitle());
-        txtReleaseDate.setText(movie.getMovieReleaseDate());
-        txtVoteAverage.setText(movie.getMovieVote() + "/10");
-        txtCountry.setText(movie.getMovieCountry());
-        txtOverview.setText(movie.getMovieOverview());
+        txtTitle.setText(movieLocal.getMovieTitle());
+        txtOriginTitle.setText(movieLocal.getMovieOriginalTitle());
+        txtReleaseDate.setText(GlobalFunction.dateFormater(movieLocal.getMovieReleaseDate()));
+        txtVoteAverage.setText(movieLocal.getMovieVote() + " " + getResources().getString(R.string.voteFull));
+        txtCountry.setText(movieLocal.getMovieCountry());
+        txtOverview.setText(movieLocal.getMovieOverview());
+    }
+
+    @NonNull
+    private static DetailViewModel obtainViewModel(FragmentActivity activity) {
+        ViewModelFactory factory = ViewModelFactory.getInstance();
+        return ViewModelProviders.of(activity, factory).get(DetailViewModel.class);
     }
 
 

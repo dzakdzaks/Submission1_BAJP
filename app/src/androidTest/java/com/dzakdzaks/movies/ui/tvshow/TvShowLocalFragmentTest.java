@@ -1,8 +1,8 @@
-package com.dzakdzaks.movies.ui.movie;
+package com.dzakdzaks.movies.ui.tvshow;
 
 import androidx.test.rule.ActivityTestRule;
 
-import com.dzakdzaks.movies.R;
+import com.dzakdzaks.movieLocals.R;
 import com.dzakdzaks.movies.testing.SingleFragmentActivity;
 import com.dzakdzaks.movies.utils.RecyclerViewItemCountAssertion;
 
@@ -16,15 +16,14 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-public class MovieFragmentTest {
-
+public class TvShowLocalFragmentTest {
     @Rule
     public ActivityTestRule<SingleFragmentActivity> activityRule = new ActivityTestRule<>(SingleFragmentActivity.class);
-    private MovieFragment movieFragment = new MovieFragment();
+    private TvShowFragment tvShowFragment = new TvShowFragment();
 
     @Before
     public void setUp() {
-        activityRule.getActivity().setFragment(movieFragment);
+        activityRule.getActivity().setFragment(tvShowFragment);
     }
 
     @After
@@ -32,8 +31,8 @@ public class MovieFragmentTest {
     }
 
     @Test
-    public void loadMovies() {
-        onView(withId(R.id.rvMovie)).check(matches(isDisplayed()));
-        onView(withId(R.id.rvMovie)).check(new RecyclerViewItemCountAssertion(11));
+    public void loadTvShow() {
+        onView(withId(R.id.rvTvShow)).check(matches(isDisplayed()));
+        onView(withId(R.id.rvTvShow)).check(new RecyclerViewItemCountAssertion(10));
     }
 }

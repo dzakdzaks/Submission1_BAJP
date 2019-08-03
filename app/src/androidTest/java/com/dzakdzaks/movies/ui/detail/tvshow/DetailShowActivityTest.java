@@ -7,7 +7,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import com.dzakdzaks.movies.R;
-import com.dzakdzaks.movies.data.TvShow;
+import com.dzakdzaks.movies.data.local.entity.TvShowLocal;
 import com.dzakdzaks.movies.utils.FakeDummy;
 
 import org.junit.After;
@@ -22,7 +22,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 public class DetailShowActivityTest {
-    private TvShow dummy = FakeDummy.generateTvShow().get(0);
+    private TvShowLocal dummy = FakeDummy.generateTvShow().get(0);
 
     @Rule
     public ActivityTestRule<DetailShowActivity> activityTestRule = new ActivityTestRule<DetailShowActivity>(DetailShowActivity.class) {

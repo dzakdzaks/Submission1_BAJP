@@ -1,22 +1,29 @@
 package com.dzakdzaks.movies.ui.detail.tvshow;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.ViewCompat;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.bumptech.glide.request.RequestOptions;
-import com.dzakdzaks.movies.R;
-import com.dzakdzaks.movies.data.TvShow;
+import com.dzakdzaks.movieLocals.BuildConfig;
+import com.dzakdzaks.movieLocals.R;
+import com.dzakdzaks.movies.data.local.entity.TvShowLocal;
 import com.dzakdzaks.movies.utils.GlideApp;
+import com.dzakdzaks.movies.utils.GlobalFunction;
+import com.dzakdzaks.movies.viewmodel.ViewModelFactory;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -35,27 +42,31 @@ public class DetailShowActivity extends AppCompatActivity {
     private TextView txtCountry;
     private TextView txtOverview;
     private DetailShowViewModel viewModel;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_show);
-        viewModel = ViewModelProviders.of(this).get(DetailShowViewModel.class);
+        viewModel = obtainViewModel(this);
         setInit();
         setupActionBar();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String courseId = extras.getString(EXTRA_TV_SHOW);
-            if (courseId != null) {
-                viewModel.setTvShowId(courseId);
+            String tvShowId = extras.getString(EXTRA_TV_SHOW);
+            if (tvShowId != null) {
+                progressBar.setVisibility(View.VISIBLE);
+                viewModel.setTvShowId(tvShowId);
             }
         }
 
-        if (viewModel.getTvShow() != null) {
-            showTvShow(viewModel.getTvShow());
-        }
-
+        viewModel.getTvShow().observe(this, tvShowLocal -> {
+            if (tvShowLocal != null) {
+                progressBar.setVisibility(View.GONE);
+                showTvShow(tvShowLocal);
+            }
+        });
 
     }
 
@@ -71,6 +82,7 @@ public class DetailShowActivity extends AppCompatActivity {
         txtVoteAverage = findViewById(R.id.textVoteAverage);
         txtCountry = findViewById(R.id.textCountry);
         txtOverview = findViewById(R.id.textOverview);
+        progressBar = findViewById(R.id.progress_bar);
     }
 
     private void setupActionBar() {
@@ -120,23 +132,29 @@ public class DetailShowActivity extends AppCompatActivity {
         }
     }
 
-    private void showTvShow(TvShow tvShow) {
-        collapsingToolbarLayout.setTitle(tvShow.getTvShowTitle());
+    private void showTvShow(TvShowLocal tvShowLocal) {
+        collapsingToolbarLayout.setTitle(tvShowLocal.getTvShowTitle());
         setupActionBar();
         GlideApp.with(getApplicationContext())
-                .load(tvShow.getTvShowImage())
+                .load(BuildConfig.BASE_URL_IMG_LANDSCAPE + tvShowLocal.getTvShowImage())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_error))
                 .into(imgThumb);
         GlideApp.with(getApplicationContext())
-                .load(tvShow.getTvShowImage())
+                .load(BuildConfig.BASE_URL_IMG + tvShowLocal.getTvShowImage())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_error))
                 .into(imgPoster);
-        txtTitle.setText(tvShow.getTvShowTitle());
-        txtOriginTitle.setText(tvShow.getTvShowOriginalTitle());
-        txtReleaseDate.setText(tvShow.getTvShowReleaseDate());
-        txtVoteAverage.setText(tvShow.getTvShowVote() + "/10");
-        txtCountry.setText(tvShow.getTvShowCountry());
-        txtOverview.setText(tvShow.getTvShowOverview());
+        txtTitle.setText(tvShowLocal.getTvShowTitle());
+        txtOriginTitle.setText(tvShowLocal.getTvShowOriginalTitle());
+        txtReleaseDate.setText(GlobalFunction.dateFormater(tvShowLocal.getTvShowReleaseDate()));
+        txtVoteAverage.setText(tvShowLocal.getTvShowVote() + " " + getResources().getString(R.string.voteFull));
+        txtCountry.setText(tvShowLocal.getTvShowCountry());
+        txtOverview.setText(tvShowLocal.getTvShowOverview());
+    }
+
+    @NonNull
+    private static DetailShowViewModel obtainViewModel(FragmentActivity activity) {
+        ViewModelFactory factory = ViewModelFactory.getInstance();
+        return ViewModelProviders.of(activity, factory).get(DetailShowViewModel.class);
     }
 
 }

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
-import com.dzakdzaks.movies.R;
+import com.dzakdzaks.movieLocals.R;
 import com.dzakdzaks.movies.ui.movie.MovieFragment;
 import com.dzakdzaks.movies.ui.tvshow.TvShowFragment;
 import com.google.android.material.tabs.TabLayout;

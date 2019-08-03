@@ -1,7 +1,7 @@
-package com.dzakdzaks.movies.data;
+package com.dzakdzaks.movies.data.local.entity;
 
-public class TvShow {
-    private String tvShowId;
+public class TvShowLocal {
+    private int tvShowId;
     private String tvShowTitle;
     private String tvShowOriginalTitle;
     private String tvShowCountry;
@@ -9,8 +9,10 @@ public class TvShow {
     private String tvShowReleaseDate;
     private String tvShowImage;
     private double tvShowVote;
+    private boolean bookmarked = false;
 
-    public TvShow(String tvShowId, String tvShowTitle, String tvShowOriginalTitle, String tvShowCountry, String tvShowOverview, String tvShowReleaseDate, String tvShowImage, double tvShowVote) {
+
+    public TvShowLocal(int tvShowId, String tvShowTitle, String tvShowOriginalTitle, String tvShowCountry, String tvShowOverview, String tvShowReleaseDate, String tvShowImage, double tvShowVote, Boolean bookmarked) {
         this.tvShowId = tvShowId;
         this.tvShowTitle = tvShowTitle;
         this.tvShowOriginalTitle = tvShowOriginalTitle;
@@ -19,13 +21,16 @@ public class TvShow {
         this.tvShowReleaseDate = tvShowReleaseDate;
         this.tvShowImage = tvShowImage;
         this.tvShowVote = tvShowVote;
+        if (bookmarked != null) {
+            this.bookmarked = bookmarked;
+        }
     }
 
-    public String getTvShowId() {
+    public int getTvShowId() {
         return tvShowId;
     }
 
-    public void setTvShowId(String tvShowId) {
+    public void setTvShowId(int tvShowId) {
         this.tvShowId = tvShowId;
     }
 
@@ -83,5 +88,13 @@ public class TvShow {
 
     public void setTvShowVote(double tvShowVote) {
         this.tvShowVote = tvShowVote;
+    }
+
+    public boolean isBookmarked() {
+        return bookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        this.bookmarked = bookmarked;
     }
 }

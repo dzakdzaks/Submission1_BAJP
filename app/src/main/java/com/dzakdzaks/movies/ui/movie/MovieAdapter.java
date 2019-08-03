@@ -12,10 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.request.RequestOptions;
-import com.dzakdzaks.movies.R;
-import com.dzakdzaks.movies.data.Movie;
+import com.dzakdzaks.movieLocals.BuildConfig;
+import com.dzakdzaks.movieLocals.R;
+import com.dzakdzaks.movies.data.local.entity.MovieLocal;
 import com.dzakdzaks.movies.ui.detail.movie.DetailActivity;
 import com.dzakdzaks.movies.utils.GlideApp;
+import com.dzakdzaks.movies.utils.GlobalFunction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,20 +25,20 @@ import java.util.List;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private final Activity activity;
-    private List<Movie> movies = new ArrayList<>();
+    private List<MovieLocal> movieLocals = new ArrayList<>();
 
     public MovieAdapter(Activity activity) {
         this.activity = activity;
     }
 
-    private List<Movie> getMovies() {
-        return movies;
+    private List<MovieLocal> getMovieLocals() {
+        return movieLocals;
     }
 
-    void setMovies(List<Movie> movieList) {
-        if (movieList == null) return;
-        this.movies.clear();
-        this.movies.addAll(movieList);
+    void setMovieLocals(List<MovieLocal> movieLocalList) {
+        if (movieLocalList == null) return;
+        this.movieLocals.clear();
+        this.movieLocals.addAll(movieLocalList);
     }
 
     @NonNull
@@ -48,30 +50,32 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        holder.tvTitle.setText(getMovies().get(position).getMovieTitle());
-        holder.tvDate.setText(getMovies().get(position).getMovieReleaseDate());
-        holder.tvOverview.setText(getMovies().get(position).getMovieOverview());
-        holder.tvVote.setText(getMovies().get(position).getMovieVote() + "/10");
+        holder.tvTitle.setText(getMovieLocals().get(position).getMovieTitle());
+        holder.tvDate.setText(GlobalFunction.dateFormater(getMovieLocals().get(position).getMovieReleaseDate()));
+        holder.tvOverview.setText(getMovieLocals().get(position).getMovieOverview());
+        holder.tvVote.setText(getMovieLocals().get(position).getMovieVote() + " " + activity.getResources().getString(R.string.voteFull));
 
         GlideApp.with(holder.itemView.getContext())
-                .load(getMovies().get(position).getMovieImage())
+                .load(BuildConfig.BASE_URL_IMG + getMovieLocals().get(position).getMovieImage())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_broken_image_black))
                 .into(holder.imgPoster);
         GlideApp.with(holder.itemView.getContext())
-                .load(getMovies().get(position).getMovieImage())
+                .load(BuildConfig.BASE_URL_IMG_LANDSCAPE + getMovieLocals().get(position).getMovieImage())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_broken_image_black))
                 .into(holder.imgBg);
 
+
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(activity, DetailActivity.class);
-            intent.putExtra(DetailActivity.EXTRA_MOVIE, getMovies().get(position).getMovieId());
+            intent.putExtra(DetailActivity.EXTRA_MOVIE, String.valueOf(getMovieLocals().get(position).getMovieId()));
             activity.startActivity(intent);
+
         });
     }
 
     @Override
     public int getItemCount() {
-        return getMovies().size();
+        return getMovieLocals().size();
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder {

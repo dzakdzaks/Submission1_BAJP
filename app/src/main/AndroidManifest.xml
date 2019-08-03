@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dzakdzaks.movies">
+    package="com.dzakdzaks.movieLocals">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,12 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.detail.tvshow.DetailShowActivity"></activity>
         <activity
-            android:name=".ui.detail.movie.DetailActivity"
+            android:name="com.dzakdzaks.movies.ui.detail.tvshow.DetailShowActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.home.MainActivity"
+            android:name="com.dzakdzaks.movies.ui.detail.movie.DetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.dzakdzaks.movies.ui.home.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>

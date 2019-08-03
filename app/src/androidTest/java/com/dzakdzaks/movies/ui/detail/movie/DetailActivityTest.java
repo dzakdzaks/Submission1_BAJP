@@ -7,7 +7,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import com.dzakdzaks.movies.R;
-import com.dzakdzaks.movies.data.Movie;
+import com.dzakdzaks.movies.data.local.entity.MovieLocal;
 import com.dzakdzaks.movies.utils.FakeDummy;
 
 import org.junit.After;
@@ -23,7 +23,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 public class DetailActivityTest {
 
-    private Movie dummy = FakeDummy.generateMovie().get(0);
+    private MovieLocal dummy = FakeDummy.generateMovie().get(0);
 
     @Rule
     public ActivityTestRule<DetailActivity> activityTestRule = new ActivityTestRule<DetailActivity>(DetailActivity.class) {

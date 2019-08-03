@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.dzakdzaks.movies.R;
+import com.dzakdzaks.movieLocals.R;
 
 public class SingleFragmentActivity extends AppCompatActivity {
 

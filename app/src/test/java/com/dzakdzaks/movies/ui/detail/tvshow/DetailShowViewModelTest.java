@@ -1,6 +1,6 @@
 package com.dzakdzaks.movies.ui.detail.tvshow;
 
-import com.dzakdzaks.movies.data.TvShow;
+import com.dzakdzaks.movies.data.local.entity.TvShowLocal;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,13 +11,13 @@ import static org.junit.Assert.assertNotNull;
 
 public class DetailShowViewModelTest {
     private DetailShowViewModel viewModel;
-    private TvShow dummy;
+    private TvShowLocal dummy;
 
 
     @Before
     public void setUp() {
         viewModel = new DetailShowViewModel();
-        dummy = new TvShow("60735",
+        dummy = new TvShowLocal("60735",
                 "The Flash",
                 "The Flash",
                 "America",
@@ -34,15 +34,15 @@ public class DetailShowViewModelTest {
     @Test
     public void getDetailTvShow() {
         viewModel.setTvShowId(dummy.getTvShowId());
-        TvShow tvShow = viewModel.getTvShow();
-        assertNotNull(tvShow);
-        assertEquals(dummy.getTvShowId(), tvShow.getTvShowId());
-        assertEquals(dummy.getTvShowTitle(), tvShow.getTvShowTitle());
-        assertEquals(dummy.getTvShowOriginalTitle(), tvShow.getTvShowOriginalTitle());
-        assertEquals(dummy.getTvShowCountry(), tvShow.getTvShowCountry());
-        assertEquals(dummy.getTvShowOverview(), tvShow.getTvShowOverview());
-        assertEquals(dummy.getTvShowReleaseDate(), tvShow.getTvShowReleaseDate());
-        assertEquals(dummy.getTvShowImage(), tvShow.getTvShowImage());
-        assertEquals(String.valueOf(dummy.getTvShowVote()), String.valueOf(tvShow.getTvShowVote()));
+        TvShowLocal tvShowLocal = viewModel.getTvShow();
+        assertNotNull(tvShowLocal);
+        assertEquals(dummy.getTvShowId(), tvShowLocal.getTvShowId());
+        assertEquals(dummy.getTvShowTitle(), tvShowLocal.getTvShowTitle());
+        assertEquals(dummy.getTvShowOriginalTitle(), tvShowLocal.getTvShowOriginalTitle());
+        assertEquals(dummy.getTvShowCountry(), tvShowLocal.getTvShowCountry());
+        assertEquals(dummy.getTvShowOverview(), tvShowLocal.getTvShowOverview());
+        assertEquals(dummy.getTvShowReleaseDate(), tvShowLocal.getTvShowReleaseDate());
+        assertEquals(dummy.getTvShowImage(), tvShowLocal.getTvShowImage());
+        assertEquals(String.valueOf(dummy.getTvShowVote()), String.valueOf(tvShowLocal.getTvShowVote()));
     }
 }

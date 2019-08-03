@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">The Movie</string>
 
-    <string name="movies">Movies</string>
+    <string name="movieLocals">Movies</string>
     <string name="overview">Overview</string>
     <string name="tanggal_release">Release Date</string>
     <string name="dot_loading">...</string>
@@ -10,4 +10,6 @@
     <string name="movie_title">Title</string>
     <string name="movie_original_title">Original Title</string>
     <string name="favorite">Favorite</string>
+    <string name="vote">3.5</string>
+    <string name="voteFull">/ 10</string>
 </resources>

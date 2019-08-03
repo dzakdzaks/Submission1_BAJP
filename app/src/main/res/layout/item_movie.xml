@@ -24,10 +24,25 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_circle" />
 
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#D9770202" />
+
+            <TextView
+                android:id="@+id/textMovieVoteAverage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:background="@color/back_text"
+                android:padding="12dp"
+                android:paddingEnd="110dp"
+                android:text="@string/vote"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/imageMovie"
@@ -47,7 +62,7 @@
                 android:paddingStart="16dp"
                 android:paddingTop="16dp"
                 android:paddingEnd="16dp"
-                android:text="@string/movies"
+                android:text="@string/movieLocals"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
 
@@ -68,32 +83,18 @@
 
             <TextView
                 android:id="@+id/textMovieOverview"
-                android:layout_width="233dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textMovieReleaseDate"
                 android:layout_toEndOf="@id/imageMovie"
                 android:layout_toRightOf="@id/imageMovie"
                 android:ellipsize="end"
                 android:maxLines="5"
-                android:padding="20dp"
+                android:padding="16dp"
                 android:text="@string/overview"
                 android:textColor="@android:color/white"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/textMovieVoteAverage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_toEndOf="@id/imageMovie"
-                android:layout_toRightOf="@id/imageMovie"
-                android:background="@color/back_text"
-                android:padding="12dp"
-                android:text="3.5"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

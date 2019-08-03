@@ -12,10 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.request.RequestOptions;
-import com.dzakdzaks.movies.R;
-import com.dzakdzaks.movies.data.TvShow;
+import com.dzakdzaks.movieLocals.BuildConfig;
+import com.dzakdzaks.movieLocals.R;
+import com.dzakdzaks.movies.data.local.entity.TvShowLocal;
 import com.dzakdzaks.movies.ui.detail.tvshow.DetailShowActivity;
 import com.dzakdzaks.movies.utils.GlideApp;
+import com.dzakdzaks.movies.utils.GlobalFunction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,20 +25,20 @@ import java.util.List;
 public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.MovieViewHolder> {
 
     private final Activity activity;
-    private List<TvShow> movies = new ArrayList<>();
+    private List<TvShowLocal> movies = new ArrayList<>();
 
     public TvShowAdapter(Activity activity) {
         this.activity = activity;
     }
 
-    private List<TvShow> getMovies() {
+    private List<TvShowLocal> getMovies() {
         return movies;
     }
 
-    void setMovies(List<TvShow> tvShowList) {
-        if (tvShowList == null) return;
+    void setMovies(List<TvShowLocal> tvShowLocalList) {
+        if (tvShowLocalList == null) return;
         this.movies.clear();
-        this.movies.addAll(tvShowList);
+        this.movies.addAll(tvShowLocalList);
     }
 
     @NonNull
@@ -49,22 +51,22 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.MovieViewH
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         holder.tvTitle.setText(getMovies().get(position).getTvShowTitle());
-        holder.tvDate.setText(getMovies().get(position).getTvShowReleaseDate());
+        holder.tvDate.setText(GlobalFunction.dateFormater(getMovies().get(position).getTvShowReleaseDate()));
         holder.tvOverview.setText(getMovies().get(position).getTvShowOverview());
-        holder.tvVote.setText(getMovies().get(position).getTvShowVote() + "/10");
+        holder.tvVote.setText(getMovies().get(position).getTvShowVote() + " " + activity.getResources().getString(R.string.voteFull));
 
         GlideApp.with(holder.itemView.getContext())
-                .load(getMovies().get(position).getTvShowImage())
+                .load(BuildConfig.BASE_URL_IMG + getMovies().get(position).getTvShowImage())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_broken_image_black))
                 .into(holder.imgPoster);
         GlideApp.with(holder.itemView.getContext())
-                .load(getMovies().get(position).getTvShowImage())
+                .load(BuildConfig.BASE_URL_IMG_LANDSCAPE + getMovies().get(position).getTvShowImage())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_broken_image_black))
                 .into(holder.imgBg);
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(activity, DetailShowActivity.class);
-            intent.putExtra(DetailShowActivity.EXTRA_TV_SHOW, getMovies().get(position).getTvShowId());
+            intent.putExtra(DetailShowActivity.EXTRA_TV_SHOW, String.valueOf(getMovies().get(position).getTvShowId()));
             activity.startActivity(intent);
         });
     }
