@@ -60,7 +60,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.MovieViewH
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_broken_image_black))
                 .into(holder.imgPoster);
         GlideApp.with(holder.itemView.getContext())
-                .load(BuildConfig.BASE_URL_IMG_LANDSCAPE + getMovies().get(position).getTvShowImage())
+                .load(BuildConfig.BASE_URL_IMG_LANDSCAPE + getMovies().get(position).getTvShowBackground())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_broken_image_black))
                 .into(holder.imgBg);
 

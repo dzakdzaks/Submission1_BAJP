@@ -15,21 +15,21 @@ import com.dzakdzaks.movies.data.remote.response.tvshow.detail.ResponseDetailTvS
 import java.util.ArrayList;
 import java.util.List;
 
-public class PublicRepository implements PublicDataSource {
+public class FakePublicRepository implements PublicDataSource {
 
-    private volatile static PublicRepository INSTANCE = null;
+    private volatile static FakePublicRepository INSTANCE = null;
 
     private final LocalRepository localRepository;
     private final RemoteRepository remoteRepository;
 
-    public PublicRepository(LocalRepository localRepository, RemoteRepository remoteRepository) {
+    public FakePublicRepository(LocalRepository localRepository, RemoteRepository remoteRepository) {
         this.localRepository = localRepository;
         this.remoteRepository = remoteRepository;
     }
 
-    public static PublicRepository getInstance(LocalRepository localRepository, RemoteRepository remoteRepository) {
+    public static FakePublicRepository getInstance(LocalRepository localRepository, RemoteRepository remoteRepository) {
         if (INSTANCE == null) {
-            INSTANCE = new PublicRepository(localRepository, remoteRepository);
+            INSTANCE = new FakePublicRepository(localRepository, remoteRepository);
         }
         return INSTANCE;
     }
@@ -110,7 +110,7 @@ public class PublicRepository implements PublicDataSource {
                 for (int i = 0; i < tvShows.size(); i++) {
                     TvShow tvShowRemote = tvShows.get(i);
                     TvShowLocal tvShowLocal = new TvShowLocal(
-                        tvShowRemote.getId(),
+                            tvShowRemote.getId(),
                             tvShowRemote.getName(),
                             tvShowRemote.getOriginalName(),
                             tvShowRemote.getOriginalLanguage(),

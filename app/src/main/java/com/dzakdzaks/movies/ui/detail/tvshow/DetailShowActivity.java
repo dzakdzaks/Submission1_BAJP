@@ -136,7 +136,7 @@ public class DetailShowActivity extends AppCompatActivity {
         collapsingToolbarLayout.setTitle(tvShowLocal.getTvShowTitle());
         setupActionBar();
         GlideApp.with(getApplicationContext())
-                .load(BuildConfig.BASE_URL_IMG_LANDSCAPE + tvShowLocal.getTvShowImage())
+                .load(BuildConfig.BASE_URL_IMG_LANDSCAPE + tvShowLocal.getTvShowBackground())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_error))
                 .into(imgThumb);
         GlideApp.with(getApplicationContext())

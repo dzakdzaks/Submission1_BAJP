@@ -60,7 +60,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_broken_image_black))
                 .into(holder.imgPoster);
         GlideApp.with(holder.itemView.getContext())
-                .load(BuildConfig.BASE_URL_IMG_LANDSCAPE + getMovieLocals().get(position).getMovieImage())
+                .load(BuildConfig.BASE_URL_IMG_LANDSCAPE + getMovieLocals().get(position).getMovieBackground())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_broken_image_black))
                 .into(holder.imgBg);
 

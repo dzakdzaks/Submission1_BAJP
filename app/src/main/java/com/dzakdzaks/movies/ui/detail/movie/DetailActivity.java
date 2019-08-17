@@ -138,7 +138,7 @@ public class DetailActivity extends AppCompatActivity {
         collapsingToolbarLayout.setTitle(movieLocal.getMovieTitle());
         setupActionBar();
         GlideApp.with(getApplicationContext())
-                .load(BuildConfig.BASE_URL_IMG_LANDSCAPE + movieLocal.getMovieImage())
+                .load(BuildConfig.BASE_URL_IMG_LANDSCAPE + movieLocal.getMovieBackground())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_circle).error(R.drawable.ic_error))
                 .into(imgThumb);
         GlideApp.with(getApplicationContext())

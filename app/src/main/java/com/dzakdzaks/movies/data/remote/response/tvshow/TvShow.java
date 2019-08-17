@@ -1,48 +1,48 @@
 package com.dzakdzaks.movies.data.remote.response.tvshow;
 
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 public class TvShow {
 
-	@SerializedName("first_air_date")
-	private String firstAirDate;
-
-	@SerializedName("overview")
-	private String overview;
-
-	@SerializedName("original_language")
-	private String originalLanguage;
-
-	@SerializedName("genre_ids")
-	private List<Integer> genreIds;
-
-	@SerializedName("poster_path")
-	private String posterPath;
-
-	@SerializedName("origin_country")
-	private List<String> originCountry;
-
-	@SerializedName("backdrop_path")
-	private String backdropPath;
-
-	@SerializedName("original_name")
-	private String originalName;
-
-	@SerializedName("popularity")
-	private double popularity;
-
-	@SerializedName("vote_average")
-	private double voteAverage;
+	@SerializedName("id")
+	private int id;
 
 	@SerializedName("name")
 	private String name;
 
-	@SerializedName("id")
-	private int id;
+	@SerializedName("original_name")
+	private String originalName;
 
-	@SerializedName("vote_count")
-	private int voteCount;
+	@SerializedName("original_language")
+	private String originalLanguage;
+
+	@SerializedName("overview")
+	private String overview;
+
+	@SerializedName("first_air_date")
+	private String firstAirDate;
+
+	@SerializedName("poster_path")
+	private String posterPath;
+
+	@SerializedName("backdrop_path")
+	private String backdropPath;
+
+	@SerializedName("vote_average")
+	private double voteAverage;
+
+
+	public TvShow(int id, String name, String originalName, String originalLanguage, String overview, String firstAirDate, String posterPath, String backdropPath, double voteAverage) {
+		this.id = id;
+		this.name = name;
+		this.originalName = originalName;
+		this.originalLanguage = originalLanguage;
+		this.overview = overview;
+		this.firstAirDate = firstAirDate;
+		this.posterPath = posterPath;
+		this.backdropPath = backdropPath;
+		this.voteAverage = voteAverage;
+	}
 
 	public void setFirstAirDate(String firstAirDate){
 		this.firstAirDate = firstAirDate;
@@ -68,13 +68,6 @@ public class TvShow {
 		return originalLanguage;
 	}
 
-	public void setGenreIds(List<Integer> genreIds){
-		this.genreIds = genreIds;
-	}
-
-	public List<Integer> getGenreIds(){
-		return genreIds;
-	}
 
 	public void setPosterPath(String posterPath){
 		this.posterPath = posterPath;
@@ -84,13 +77,6 @@ public class TvShow {
 		return posterPath;
 	}
 
-	public void setOriginCountry(List<String> originCountry){
-		this.originCountry = originCountry;
-	}
-
-	public List<String> getOriginCountry(){
-		return originCountry;
-	}
 
 	public void setBackdropPath(String backdropPath){
 		this.backdropPath = backdropPath;
@@ -108,13 +94,6 @@ public class TvShow {
 		return originalName;
 	}
 
-	public void setPopularity(double popularity){
-		this.popularity = popularity;
-	}
-
-	public double getPopularity(){
-		return popularity;
-	}
 
 	public void setVoteAverage(double voteAverage){
 		this.voteAverage = voteAverage;
@@ -140,11 +119,4 @@ public class TvShow {
 		return id;
 	}
 
-	public void setVoteCount(int voteCount){
-		this.voteCount = voteCount;
-	}
-
-	public int getVoteCount(){
-		return voteCount;
-	}
 }

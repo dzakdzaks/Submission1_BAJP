@@ -1,7 +1,5 @@
 package com.dzakdzaks.movies.data.remote;
 
-import android.os.Handler;
-
 import com.dzakdzaks.movies.data.remote.response.movie.Movie;
 import com.dzakdzaks.movies.data.remote.response.movie.ResponseMovie;
 import com.dzakdzaks.movies.data.remote.response.movie.detail.ResponseDetailMovie;
@@ -18,9 +16,6 @@ import retrofit2.Response;
 public class RemoteRepository {
 
     private static RemoteRepository INSTANCE;
-    private ApiClient apiClient;
-    private final long SERVICE_LATENCY_IN_MILIS = 2000;
-
 
     public static RemoteRepository getInstance() {
         if (INSTANCE == null) {
@@ -30,8 +25,6 @@ public class RemoteRepository {
     }
 
     public void getAllMovies(String apiKey, String language, String page, LoadMoviesCallback callback) {
-        Handler handler = new Handler();
-        handler.postDelayed(() -> {
             Call<ResponseMovie> call = ApiClient.getApi().getMovies(apiKey, language, page);
             call.enqueue(new Callback<ResponseMovie>() {
                 @Override
@@ -46,13 +39,10 @@ public class RemoteRepository {
                     callback.onMoviesFailedReceived();
                 }
             });
-        }, SERVICE_LATENCY_IN_MILIS);
     }
 
 
     public void getDetailMovie(String movieId, String apiKey, String language, LoadDetailMovieCallback callback) {
-        Handler handler = new Handler();
-        handler.postDelayed(() -> {
             Call<ResponseDetailMovie> call = ApiClient.getApi().getDetailMovie(movieId, apiKey, language);
             call.enqueue(new Callback<ResponseDetailMovie>() {
                 @Override
@@ -65,13 +55,9 @@ public class RemoteRepository {
                     callback.onDetailMovieFailedReceived();
                 }
             });
-        }, SERVICE_LATENCY_IN_MILIS);
-
     }
 
     public void getAllTvShow(String apiKey, String language, String page, LoadTvShowsCallback callback) {
-        Handler handler = new Handler();
-        handler.postDelayed(() -> {
             Call<ResponseTvShow> call = ApiClient.getApi().getTvShows(apiKey, language, page);
             call.enqueue(new Callback<ResponseTvShow>() {
                 @Override
@@ -84,12 +70,9 @@ public class RemoteRepository {
                     callback.onTvShowsFailedReceived();
                 }
             });
-        }, SERVICE_LATENCY_IN_MILIS);
     }
 
     public void getDetailTvShow(String tvShowId, String apiKey, String language, LoadDetailTvShowCallback callback) {
-        Handler handler = new Handler();
-        handler.postDelayed(() -> {
             Call<ResponseDetailTvShow> call = ApiClient.getApi().getDetailTvShow(tvShowId, apiKey, language);
             call.enqueue(new Callback<ResponseDetailTvShow>() {
                 @Override
@@ -102,7 +85,6 @@ public class RemoteRepository {
                     callback.onDetailTvShowsFailedReceived();
                 }
             });
-        }, SERVICE_LATENCY_IN_MILIS);
     }
 
 

@@ -8,11 +8,12 @@ public class TvShowLocal {
     private String tvShowOverview;
     private String tvShowReleaseDate;
     private String tvShowImage;
+    private String tvShowBackground;
     private double tvShowVote;
     private boolean bookmarked = false;
 
 
-    public TvShowLocal(int tvShowId, String tvShowTitle, String tvShowOriginalTitle, String tvShowCountry, String tvShowOverview, String tvShowReleaseDate, String tvShowImage, double tvShowVote, Boolean bookmarked) {
+    public TvShowLocal(int tvShowId, String tvShowTitle, String tvShowOriginalTitle, String tvShowCountry, String tvShowOverview, String tvShowReleaseDate, String tvShowImage, String tvShowBackground, double tvShowVote, Boolean bookmarked) {
         this.tvShowId = tvShowId;
         this.tvShowTitle = tvShowTitle;
         this.tvShowOriginalTitle = tvShowOriginalTitle;
@@ -20,6 +21,7 @@ public class TvShowLocal {
         this.tvShowOverview = tvShowOverview;
         this.tvShowReleaseDate = tvShowReleaseDate;
         this.tvShowImage = tvShowImage;
+        this.tvShowBackground = tvShowBackground;
         this.tvShowVote = tvShowVote;
         if (bookmarked != null) {
             this.bookmarked = bookmarked;
@@ -80,6 +82,14 @@ public class TvShowLocal {
 
     public void setTvShowImage(String tvShowImage) {
         this.tvShowImage = tvShowImage;
+    }
+
+    public String getTvShowBackground() {
+        return tvShowBackground;
+    }
+
+    public void setTvShowBackground(String tvShowBackground) {
+        this.tvShowBackground = tvShowBackground;
     }
 
     public double getTvShowVote() {

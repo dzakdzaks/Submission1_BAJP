@@ -1,6 +1,5 @@
 package com.dzakdzaks.movies.data.remote.response.movie;
 
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 public class Movie {
@@ -14,14 +13,8 @@ public class Movie {
 	@SerializedName("original_title")
 	private String originalTitle;
 
-	@SerializedName("video")
-	private boolean video;
-
 	@SerializedName("title")
 	private String title;
-
-	@SerializedName("genre_ids")
-	private List<Integer> genreIds;
 
 	@SerializedName("poster_path")
 	private String posterPath;
@@ -35,17 +28,20 @@ public class Movie {
 	@SerializedName("vote_average")
 	private double voteAverage;
 
-	@SerializedName("popularity")
-	private double popularity;
-
 	@SerializedName("id")
 	private int id;
 
-	@SerializedName("adult")
-	private boolean adult;
-
-	@SerializedName("vote_count")
-	private int voteCount;
+	public Movie(int movieId, String movieTitle, String movieOriginalTitle, String movieCountry, String movieOverview, String movieReleaseDate, String movieImage, String movieBackground, double movieVote) {
+		this.id = movieId;
+		this.title = movieTitle;
+		this.originalTitle = movieOriginalTitle;
+		this.originalLanguage = movieCountry;
+		this.overview = movieOverview;
+		this.releaseDate = movieReleaseDate;
+		this.posterPath = movieImage;
+		this.backdropPath = movieBackground;
+		this.voteAverage = movieVote;
+	}
 
 	public void setOverview(String overview){
 		this.overview = overview;
@@ -71,13 +67,6 @@ public class Movie {
 		return originalTitle;
 	}
 
-	public void setVideo(boolean video){
-		this.video = video;
-	}
-
-	public boolean isVideo(){
-		return video;
-	}
 
 	public void setTitle(String title){
 		this.title = title;
@@ -87,13 +76,6 @@ public class Movie {
 		return title;
 	}
 
-	public void setGenreIds(List<Integer> genreIds){
-		this.genreIds = genreIds;
-	}
-
-	public List<Integer> getGenreIds(){
-		return genreIds;
-	}
 
 	public void setPosterPath(String posterPath){
 		this.posterPath = posterPath;
@@ -127,14 +109,6 @@ public class Movie {
 		return voteAverage;
 	}
 
-	public void setPopularity(double popularity){
-		this.popularity = popularity;
-	}
-
-	public double getPopularity(){
-		return popularity;
-	}
-
 	public void setId(int id){
 		this.id = id;
 	}
@@ -143,19 +117,4 @@ public class Movie {
 		return id;
 	}
 
-	public void setAdult(boolean adult){
-		this.adult = adult;
 	}
-
-	public boolean isAdult(){
-		return adult;
-	}
-
-	public void setVoteCount(int voteCount){
-		this.voteCount = voteCount;
-	}
-
-	public int getVoteCount(){
-		return voteCount;
-	}
-}

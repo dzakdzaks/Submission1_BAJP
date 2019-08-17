@@ -8,11 +8,12 @@ public class MovieLocal {
     private String movieOverview;
     private String movieReleaseDate;
     private String movieImage;
+    private String movieBackground;
     private double movieVote;
     private boolean bookmarked = false;
 
 
-    public MovieLocal(int movieId, String movieTitle, String movieOriginalTitle, String movieCountry, String movieOverview, String movieReleaseDate, String movieImage, double movieVote, Boolean bookmarked) {
+    public MovieLocal(int movieId, String movieTitle, String movieOriginalTitle, String movieCountry, String movieOverview, String movieReleaseDate, String movieImage, String movieBackground, double movieVote, Boolean bookmarked) {
         this.movieId = movieId;
         this.movieTitle = movieTitle;
         this.movieOriginalTitle = movieOriginalTitle;
@@ -20,6 +21,7 @@ public class MovieLocal {
         this.movieOverview = movieOverview;
         this.movieReleaseDate = movieReleaseDate;
         this.movieImage = movieImage;
+        this.movieBackground = movieBackground;
         this.movieVote = movieVote;
         if (bookmarked != null) {
             this.bookmarked = bookmarked;
@@ -81,6 +83,14 @@ public class MovieLocal {
 
     public void setMovieImage(String movieImage) {
         this.movieImage = movieImage;
+    }
+
+    public String getMovieBackground() {
+        return movieBackground;
+    }
+
+    public void setMovieBackground(String movieBackground) {
+        this.movieBackground = movieBackground;
     }
 
     public double getMovieVote() {
